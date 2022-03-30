@@ -1,0 +1,1 @@
+components.sidebar<?php /**PATH F:\TAF\Taf_lara\Api_Gestion_Lara\storage\framework\views/e278d4a2c59409a11895f9a9c43590b151fbcef3.blade.php ENDPATH**/ ?>

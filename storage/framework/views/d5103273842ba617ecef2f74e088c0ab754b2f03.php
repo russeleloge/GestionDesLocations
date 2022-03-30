@@ -1,0 +1,1 @@
+components.topnav<?php /**PATH F:\TAF\Taf_lara\Api_Gestion_Lara\storage\framework\views/6471b4375e1b18f4281b59579e4d064de959d534.blade.php ENDPATH**/ ?>

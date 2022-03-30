@@ -1,0 +1,1 @@
+components.menu<?php /**PATH F:\TAF\Taf_lara\Api_Gestion_Lara\storage\framework\views/ce5b45c4640924f87f7f8f5b11a74e2f63e75c2a.blade.php ENDPATH**/ ?>
