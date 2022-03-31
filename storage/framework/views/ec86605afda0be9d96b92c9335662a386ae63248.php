@@ -233,7 +233,7 @@ unset($__errorArgs, $__bag); ?>
                 position: 'top-end',
                 icon: 'success',
                 toast:true,
-                title: "Opération effectuée avec succès!",
+                title: event.detail.message || "Opération effectuée avec succès!",
                 showConfirmButton: false,
                 timer: 1500
                 }
