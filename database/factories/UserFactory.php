@@ -29,7 +29,7 @@ class UserFactory extends Factory
             // 'remember_token' => Str::random(10),
             'pieceIdentite' => array_rand(["CNI","PASSPORT","PERMIS DE CONDUIRE"], 1),
             'numeroPieceIdentite' => $this->faker->unique()->bankAccountNumber,
-            'photo'=>$this->faker->imageUrl(),
+            // 'photo'=>$this->faker->imageUrl(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
             
         ];

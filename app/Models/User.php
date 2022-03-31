@@ -54,4 +54,26 @@ class User extends Authenticatable
         return $this->belongsToMany(Permission::class,"user_permission","user_id","permission_id");
     }
 
+
+    // On verifie si l'utilisateur a un name qui correspond a $role
+    // Et s'il trouve il prendra le premier et si ce premier 
+    public function hasRole($role){
+        return $this->roles()->where("nom", $role)->first() !== null;
+    }
+
+    // On verifie si l'utilisateur a un name qui correspond a au moins un element de $roles
+    public function hasAnyRoles($roles){
+        return $this->roles()->whereIn("nom", $roles)->first() !== null;
+    }
+
+//Pour creer des proprietes qui n'existent pas dans la bd mais qu'on aura besoin
+// on creer une fonction qui commence par get et se termine par Attribute
+// le nom commence par une miniscule et chaque nouveau mot qui suit commence par une lettre miniscule 
+// Cette fonction sera invoquer sous le nom de allRoleNames ou all_role_names
+    public function getAllRoleNamesAttribute(){
+        // {{-- implode permet de separer chaque role(nom) par | si l'utilisateur en a plusieurs --}}
+        return $this->roles->implode("nom", ' | ');
+    }
+
+
 }

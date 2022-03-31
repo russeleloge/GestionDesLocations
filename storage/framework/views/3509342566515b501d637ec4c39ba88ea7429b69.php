@@ -5,7 +5,7 @@
          with font-awesome or any other icon font library -->
 
          <li class="nav-item">
-            <a href="{{route('home')}}" class="nav-link {{ setMenuActive('home') }}">
+            <a href="<?php echo e(route('home')); ?>" class="nav-link <?php echo e(setMenuActive('home')); ?>">
               <i class="nav-icon fas fa-home"></i>
               <p>
                 Accueil
@@ -13,8 +13,8 @@
             </a>
           </li>
 
-          {{-- @can est lier avec les gates --}}
-        @can('manager')
+          
+        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('manager')): ?>
         <li class="nav-item">
             <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -38,12 +38,12 @@
                 </li>
             </ul>
         </li>
-        @endcan
+        <?php endif; ?>
 
 
-        @can('admin')
-        <li class="nav-item {{ setMenuClass('admin.habilitations.', 'menu-open') }}">
-            <a href="#" class="nav-link {{ setMenuClass('admin.habilitations.', 'active') }}">
+        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('admin')): ?>
+        <li class="nav-item <?php echo e(setMenuClass('admin.habilitations.', 'menu-open')); ?>">
+            <a href="#" class="nav-link <?php echo e(setMenuClass('admin.habilitations.', 'active')); ?>">
                 <i class=" nav-icon fas fa-user-shield"></i>
                 <p>
                     Habilitations
@@ -52,8 +52,8 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item ">
-                    <a href="{{ route('admin.habilitations.users.index') }}"
-                        class="nav-link {{ setMenuActive('admin.habilitations.users.index') }}">
+                    <a href="<?php echo e(route('admin.habilitations.users.index')); ?>"
+                        class="nav-link <?php echo e(setMenuActive('admin.habilitations.users.index')); ?>">
                         <i class=" nav-icon fas fa-users-cog"></i>
                         <p>Utilisateurs</p>
                     </a>
@@ -96,10 +96,10 @@
                 </li>
             </ul>
         </li>
-        @endcan
+        <?php endif; ?>
 
 
-        @can('employe')
+        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('employe')): ?>
         <li class="nav-header">LOCATION</li>
         <li class="nav-item">
           <a href="" class="nav-link">
@@ -127,7 +127,8 @@
             </p>
           </a>
         </li>
-        @endcan
+        <?php endif; ?>
 
     </ul>
 </nav>
+<?php /**PATH F:\apkGest\resources\views/components/menu.blade.php ENDPATH**/ ?>

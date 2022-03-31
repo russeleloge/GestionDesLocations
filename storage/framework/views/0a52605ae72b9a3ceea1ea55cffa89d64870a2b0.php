@@ -5,15 +5,16 @@
                 <div class="bg-dark">
                         <div class="card-body box-profile">
                           <div class="text-center">
-                            <img class="profile-user-img img-fluid img-circle" src="{{asset('images/user.png')}}" alt="User profile picture">
+                            <img class="profile-user-img img-fluid img-circle" src="<?php echo e(asset('images/user.png')); ?>" alt="User profile picture">
                           </div>
           
-                          <h3 class="profile-username text-center ellipsis">{{ userFullname()}}</h3>
+                          <h3 class="profile-username text-center ellipsis"><?php echo e(userFullname()); ?></h3>
           
                           <p class="text-muted text-center">
-                          @foreach(auth()->user()->roles as $role)
-                              {{ \Illuminate\Support\Str::ucfirst($role->nom) }}
-                          @endforeach
+                          <?php $__currentLoopData = auth()->user()->roles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $role): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                              <?php echo e(\Illuminate\Support\Str::ucfirst($role->nom)); ?>
+
+                          <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                           </p>
           
                           <ul class="list-group bg-dark mb-3">
@@ -26,15 +27,15 @@
                           </ul>
           
           
-                          <a href="{{ route('logout') }}"
+                          <a href="<?php echo e(route('logout')); ?>"
                               onclick="event.preventDefault();document.getElementById('logout-form').submit();"
                               class="btn btn-primary btn-block"><b>Déconnexion</b></a>
           
-                          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                              @csrf
+                          <form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" class="d-none">
+                              <?php echo csrf_field(); ?>
                           </form>
                         </div>
                         <!-- /.card-body -->
                       </div>
               </div>
-        </aside>
+        </aside><?php /**PATH F:\apkGest\resources\views/components/sidebar.blade.php ENDPATH**/ ?>
