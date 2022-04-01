@@ -150,7 +150,7 @@
                 toast:true,
                 title: event.detail.message || "Opération effectuée avec succès!",
                 showConfirmButton: false,
-                timer: 1500
+                timer: 2000
                 }
             )
     })

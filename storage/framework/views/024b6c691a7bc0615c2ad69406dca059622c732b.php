@@ -35,6 +35,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        
                         <?php $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr>
                                 <td>
@@ -56,7 +57,7 @@
                                 </td>
                                 <td class="text-center">
                                     <button class="btn btn-link"> <i class="far fa-edit"></i> </button>
-                                    <button class="btn btn-link"> <i class="far fa-trash-alt"></i> </button>
+                                    <button class="btn btn-link" wire:click="confirmDelete('<?php echo e($user->prenom); ?> <?php echo e($user->nom); ?>', <?php echo e($user->id); ?>)"> <i class="far fa-trash-alt"></i> </button>
                                 </td>
                             </tr>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -74,4 +75,46 @@
         </div>
         <!-- /.card -->
     </div>
-</div><?php /**PATH F:\apkGest\resources\views/livewire/utilisateurs/liste.blade.php ENDPATH**/ ?>
+</div>
+
+<script>
+    // SweetAlert est une librairie JS qui permet d'afficher de beaux messages
+    window.addEventListener("showConfirmMessage", event=>{
+       Swal.fire({
+        //    event.detail.message provient de la fonction confirmDelete
+        title: event.detail.message.title,
+        text: event.detail.message.text,
+        icon: event.detail.message.type,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Continuer',
+        cancelButtonText: 'Annuler'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            if(event.detail.message.data){
+                window.livewire.find('<?php echo e($_instance->id); ?>').deleteUser(event.detail.message.data.user_id)
+            }
+
+            // window.livewire.find('<?php echo e($_instance->id); ?>').resetPassword()
+
+        }
+        })
+    })
+
+   
+    // sweetAlert est une librairie JS qui permet d'afficher de beaux messages
+    window.addEventListener("showSuccessMessage", event=>{
+        Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                toast:true,
+                title: event.detail.message || "Opération effectuée avec succès!",
+                showConfirmButton: false,
+                timer: 2000
+                }
+            )
+    })
+
+
+</script><?php /**PATH F:\apkGest\resources\views/livewire/utilisateurs/liste.blade.php ENDPATH**/ ?>

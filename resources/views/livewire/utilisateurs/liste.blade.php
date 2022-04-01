@@ -35,6 +35,7 @@
                         </tr>
                     </thead>
                     <tbody>
+                        {{-- Users fait reference a l'utilisateur dans la fonction render dans utilisateur.php --}}
                         @foreach ($users as $user)
                             <tr>
                                 <td>
@@ -55,7 +56,7 @@
                                 </td>
                                 <td class="text-center">
                                     <button class="btn btn-link"> <i class="far fa-edit"></i> </button>
-                                    <button class="btn btn-link"> <i class="far fa-trash-alt"></i> </button>
+                                    <button class="btn btn-link" wire:click="confirmDelete('{{ $user->prenom }} {{ $user->nom }}', {{$user->id}})"> <i class="far fa-trash-alt"></i> </button>
                                 </td>
                             </tr>
                         @endforeach
@@ -73,3 +74,45 @@
         <!-- /.card -->
     </div>
 </div>
+
+<script>
+    // SweetAlert est une librairie JS qui permet d'afficher de beaux messages
+    window.addEventListener("showConfirmMessage", event=>{
+       Swal.fire({
+        //    event.detail.message provient de la fonction confirmDelete
+        title: event.detail.message.title,
+        text: event.detail.message.text,
+        icon: event.detail.message.type,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Continuer',
+        cancelButtonText: 'Annuler'
+        }).then((result) => {
+        if (result.isConfirmed) {
+            if(event.detail.message.data){
+                @this.deleteUser(event.detail.message.data.user_id)
+            }
+
+            // @this.resetPassword()
+
+        }
+        })
+    })
+
+   
+    // sweetAlert est une librairie JS qui permet d'afficher de beaux messages
+    window.addEventListener("showSuccessMessage", event=>{
+        Swal.fire({
+                position: 'top-end',
+                icon: 'success',
+                toast:true,
+                title: event.detail.message || "Opération effectuée avec succès!",
+                showConfirmButton: false,
+                timer: 2000
+                }
+            )
+    })
+
+
+</script>
