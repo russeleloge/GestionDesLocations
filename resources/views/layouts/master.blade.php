@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Starter</title>
+    <title>gestionDesLocations</title>
 
     <link rel="stylesheet" href="{{ mix('css/app.css') }}" />
 
@@ -24,7 +24,7 @@
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
+            <a href="#" class="brand-link">
                 <center><span class="brand-text font-weight-bold" style="font-size:1.3em"><b>Just do it ✔</b></span></center>
             </a>
 
@@ -71,8 +71,7 @@
                 Anything you want
             </div>
             <!-- Default to the left -->
-            <strong>Copyright &copy; 2022 <a href="https://adminlte.io">RUSSELCorp.org</a>.</strong> All rights
-            reserved.
+            <strong>Copyright &copy; 2022 <span class="text-primary">NJIEGOM TCHOGA Eloge Russel</a></strong> Tous les droits reservés.
         </footer>
     </div>
     <!-- ./wrapper -->

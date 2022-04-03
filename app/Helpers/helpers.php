@@ -2,6 +2,15 @@
 
 use Illuminate\Support\Str;
 
+// on definit nos constantes qui vont aider à savoir sur quelle page on se trouve
+// afin d'afficher le contenu adéquat
+
+define("PAGELIST", "liste");
+define("PAGECREATEFORM", "create");
+define("PAGEEDITFORM", "edit");
+
+define("DEFAULTPASSWORD", "password");
+
 
 function userFullname(){
     return auth()->user()->prenom . " " . auth()->user()->nom;
