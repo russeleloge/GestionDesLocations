@@ -6,6 +6,7 @@ use App\Models\Role;
 use App\Models\User;
 use Livewire\Component;
 use App\Models\Permission;
+use Carbon\Carbon;
 use Livewire\WithPagination;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
@@ -68,6 +69,10 @@ class Utilisateurs extends Component
     // la page est recharger automatiquement
     public function render()
     {
+
+        // Il permet de changer le texte en francais
+        Carbon::setLocale("fr");
+
         return view('livewire.utilisateurs.index', [
             // users sera donc utiliser dans les vues
             // "users" => User::all()
@@ -126,15 +131,37 @@ class Utilisateurs extends Component
         $this->currentPage = PAGEEDITFORM;
 
         $this->populateRolePermissions();
+    }
+
+    public function updateRoleAndPermissions()
+    {
+
+        DB::table("user_role")->where("user_id", $this->editUser["id"])->delete();
+        DB::table("user_permission")->where("user_id", $this->editUser["id"])->delete();
+
+        foreach ($this->rolePermissions["roles"] as $role) {
+            // ici, on attache l'id du role a l'id de l'utilisateur dans la user_role
+            if($role["active"]){
+                User::find($this->editUser["id"])->roles()->attach($role["role_id"]);
+            }
+        }
+        foreach($this->rolePermissions["permissions"] as $permission){
+            // Pour chq permission, on teste si c'est activer
+            if($permission["active"]){
+                User::find($this->editUser["id"])->permissions()->attach($permission["permission_id"]);
+            }
+        }
+        $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "Roles et permissions mis à jour avec succès!"]);
 
     }
 
-    public function populateRolePermissions(){
+    public function populateRolePermissions()
+    {
         $this->rolePermissions["roles"] = [];
         $this->rolePermissions["permissions"] = [];
-        
+
         // 
-        $mapForCB = function($value){
+        $mapForCB = function ($value) {
             return $value["id"];
         };
 
@@ -142,30 +169,29 @@ class Utilisateurs extends Component
         // On recupere tous le(s) id(s) du ou des role(s)
         // editUser est un tableau qui contient tous les elements d'un user precisement
         $roleIds = array_map($mapForCB, User::find($this->editUser["id"])->roles->toArray());
-        
-        $permissionIds = array_map($mapForCB, User::find($this->editUser["id"])->permissions->toArray()); 
 
-       
+        $permissionIds = array_map($mapForCB, User::find($this->editUser["id"])->permissions->toArray());
 
-        foreach(Role::all() as $role){
+
+
+        foreach (Role::all() as $role) {
             // On verifie si un id de la table roles se trouve dans le tableau de roles retourner 
-            if(in_array($role->id, $roleIds)){
-                // Si oui, on stocke les donners de ce role et passe la rmq a vrai
-                array_push($this->rolePermissions["roles"], ["role_id"=>$role->id, "role_nom"=>$role->nom, "active"=>true]);
-            }else{
-                // Dans le cas contraire, on stocke les donners de ce role et passe la rmq a faux
-                array_push($this->rolePermissions["roles"], ["role_id"=>$role->id, "role_nom"=>$role->nom, "active"=>false]);
+            if (in_array($role->id, $roleIds)) {
+                // Si oui, on stocke les donners de ce role dans rolePermissions["roles"] et passe la rmq a vrai
+                array_push($this->rolePermissions["roles"], ["role_id" => $role->id, "role_nom" => $role->nom, "active" => true]);
+            } else {
+                // Dans le cas contraire, on stocke les donners dans rolePermissions["roles"] de ce role et passe la rmq a faux
+                array_push($this->rolePermissions["roles"], ["role_id" => $role->id, "role_nom" => $role->nom, "active" => false]);
             }
-            
         }
         // dump($this->rolePermissions);
         // dump($roleIds);
 
-        foreach(Permission::all() as $permission){
-            if(in_array($permission->id, $permissionIds)){
-                array_push($this->rolePermissions["permissions"], ["permission_id"=>$permission->id, "permission_nom"=>$permission->nom, "active"=>true]);
-            }else{
-                array_push($this->rolePermissions["permissions"], ["permission_id"=>$permission->id, "permission_nom"=>$permission->nom, "active"=>false]);
+        foreach (Permission::all() as $permission) {
+            if (in_array($permission->id, $permissionIds)) {
+                array_push($this->rolePermissions["permissions"], ["permission_id" => $permission->id, "permission_nom" => $permission->nom, "active" => true]);
+            } else {
+                array_push($this->rolePermissions["permissions"], ["permission_id" => $permission->id, "permission_nom" => $permission->nom, "active" => false]);
             }
         }
 
@@ -201,6 +227,7 @@ class Utilisateurs extends Component
         // Elle renvoit un tableau des attributs qui ont ete valider
         $validationAttributes = $this->validate();
 
+        // C'est grace a la function goToListUser() qu'on saura l'Id de l'utilisateur a modifier
         User::find($this->editUser["id"])->update($validationAttributes["editUser"]);
 
         $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "Utilisateur mis à jour avec succès!"]);

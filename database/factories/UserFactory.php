@@ -20,14 +20,14 @@ class UserFactory extends Factory
         return [
             'nom' => $this->faker->lastName(),
             'prenom' => $this->faker->firstName(),
-            'sexe' => array_rand(["H","F"],1),
+            'sexe' => array_rand(["H"=>"12","F"=>"34"],1),
             'email' => $this->faker->unique()->safeEmail(),
             'telephone1' => $this->faker->unique()->phoneNumber,
             'telephone2' => $this->faker->unique()->phoneNumber,
             // 'email_verified_at' => now(),
             
             // 'remember_token' => Str::random(10),
-            'pieceIdentite' => array_rand(["CNI","PASSPORT","PERMIS DE CONDUIRE"], 1),
+            'pieceIdentite' => array_rand(["CNI"=>"23","PASSPORT"=>"12","PERMIS DE CONDUIRE"=>"37"]),
             'numeroPieceIdentite' => $this->faker->unique()->bankAccountNumber,
             // 'photo'=>$this->faker->imageUrl(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',

@@ -67,9 +67,9 @@
         <!-- Main Footer -->
         <footer class="main-footer">
             <!-- To the right -->
-            <div class="float-right d-none d-sm-inline">
+            {{-- <div class="float-right d-none d-sm-inline">
                 Anything you want
-            </div>
+            </div> --}}
             <!-- Default to the left -->
             <strong>Copyright &copy; 2022 <span class="text-primary">NJIEGOM TCHOGA Eloge Russel</a></strong> Tous les droits reservés.
         </footer>

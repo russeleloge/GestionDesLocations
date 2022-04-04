@@ -23,9 +23,9 @@ class PermissionTableSeeder extends Seeder
             ["nom"=>"consulter une location"],
             ["nom"=>"editer une location"],
 
-            ["nom"=>"ajouter une location"],
-            ["nom"=>"consulter une location"],
-            ["nom"=>"editer une location"],
+            ["nom"=>"ajouter un article"],
+            ["nom"=>"consulter un article"],
+            ["nom"=>"editer un article"],
         ]);
     }
 }

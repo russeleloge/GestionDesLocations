@@ -207,11 +207,9 @@ unset($__errorArgs, $__bag); ?>
                 </div>
                 <!-- /.card-body -->
 
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-primary mb-2">Appliquer les modifications</button>
-                    <button type="button" class="btn btn-danger mb-2" wire:click="goToListUser()">Retouner à la liste
-                        des
-                        utilisateurs</button>
+                <div class="card-footer">                                            
+                    <button type="submit" class="btn btn-primary mb-2">Appliquer les changements</button>
+                    <button type="button" class="btn btn-danger mb-2" wire:click="goToListUser()">Retour à la liste des usagers</button>
                 </div>
             </form>
         </div>
@@ -219,6 +217,9 @@ unset($__errorArgs, $__bag); ?>
 
     </div>
 
+
+
+    
     <div class="col-md-6">
         <div class="row ">
             <div class="col-md-12">
@@ -244,7 +245,8 @@ unset($__errorArgs, $__bag); ?>
                     <div class="card-header d-flex align-items-center">
                         <h3 class="card-title flex-grow-1"><i class="fas fa-fingerprint fa-2x"></i> Roles & permissions
                         </h3>
-                        <button class="btn bg-gradient-success"><i class="fas fa-check"></i> Appliquer les
+                        <button class="btn bg-gradient-success" wire:click="updateRoleAndPermissions()"><i
+                                class="fas fa-check"></i> Appliquer les
                             modifications</button>
                     </div>
                     <!-- /.card-header -->
@@ -254,22 +256,34 @@ unset($__errorArgs, $__bag); ?>
                                 <div class="card">
                                     <div class="card-header d-flex justify-content-between">
                                         <h4 class="card-title flex-grow-1">
-                                            <a data-parent="#accordion" href="#" aria-expanded="true"
-                                                style="pointer-events:">
+                                            <a data-parent="#accordion" href="#" aria-expanded="true">
+                                                
                                                 <?php echo e($role['role_nom']); ?>
 
                                             </a>
                                         </h4>
                                         <div
                                             class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                            
+                                            
+                                            
+                                            
+                                            <input type="checkbox" class="custom-control-input"
+                                                wire:model.lazy="rolePermissions.roles.<?php echo e($loop->index); ?>.active"
+                                                <?php if($role['active']): ?> checked <?php endif; ?>
+                                                id="customSwitch<?php echo e($role['role_id']); ?>">
+                                            <label class="custom-control-label"
+                                                for="customSwitch<?php echo e($role['role_id']); ?>">
+                                                
+                                                <?php echo e($role['active'] ? 'Activé' : 'Désactivé'); ?>
 
-                                            <input type="checkbox" class="custom-control-input" id="">
-                                            <label class="custom-control-label" for="">
                                             </label>
                                         </div>
                                     </div>
                                 </div>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
+                            
                         </div>
                     </div>
 
@@ -280,20 +294,26 @@ unset($__errorArgs, $__bag); ?>
                                 <th></th>
                             </thead>
                             <tbody>
+                                <?php $__currentLoopData = $rolePermissions['permissions']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $permission): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <tr>
+                                        <td> <?php echo e($permission['permission_nom']); ?></td>
+                                        <td>
+                                            <div
+                                                class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
 
-                                <tr>
-                                    <td></td>
-                                    <td>
-                                        <div
-                                            class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                                                <input type="checkbox" class="custom-control-input"
+                                                    wire:model.lazy="rolePermissions.permissions.<?php echo e($loop->index); ?>.active"
+                                                    <?php if($permission['active']): ?> checked <?php endif; ?>
+                                                    id="customSwitchPermission<?php echo e($permission['permission_id']); ?>">
+                                                <label class="custom-control-label"
+                                                    for="customSwitchPermission<?php echo e($permission['permission_id']); ?>">
+                                                    <?php echo e($permission['active'] ? 'Activé' : 'Désactivé'); ?>
 
-                                            <input type="checkbox" class="custom-control-input" id="">
-                                            <label class="custom-control-label" for="">
-                                            </label>
-                                        </div>
-                                    </td>
-                                </tr>
-
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </tbody>
 
                         </table>

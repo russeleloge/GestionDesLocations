@@ -109,11 +109,9 @@
                 </div>
                 <!-- /.card-body -->
 
-                <div class="card-footer">
-                    <button type="submit" class="btn btn-primary mb-2">Appliquer les modifications</button>
-                    <button type="button" class="btn btn-danger mb-2" wire:click="goToListUser()">Retouner à la liste
-                        des
-                        utilisateurs</button>
+                <div class="card-footer">                                            
+                    <button type="submit" class="btn btn-primary mb-2">Appliquer les changements</button>
+                    <button type="button" class="btn btn-danger mb-2" wire:click="goToListUser()">Retour à la liste des usagers</button>
                 </div>
             </form>
         </div>
@@ -121,6 +119,9 @@
 
     </div>
 
+
+
+    {{-- Roles et permissions --}}
     <div class="col-md-6">
         <div class="row ">
             <div class="col-md-12">
@@ -146,7 +147,8 @@
                     <div class="card-header d-flex align-items-center">
                         <h3 class="card-title flex-grow-1"><i class="fas fa-fingerprint fa-2x"></i> Roles & permissions
                         </h3>
-                        <button class="btn bg-gradient-success"><i class="fas fa-check"></i> Appliquer les
+                        <button class="btn bg-gradient-success" wire:click="updateRoleAndPermissions()"><i
+                                class="fas fa-check"></i> Appliquer les
                             modifications</button>
                     </div>
                     <!-- /.card-header -->
@@ -156,21 +158,32 @@
                                 <div class="card">
                                     <div class="card-header d-flex justify-content-between">
                                         <h4 class="card-title flex-grow-1">
-                                            <a data-parent="#accordion" href="#" aria-expanded="true"
-                                                style="pointer-events:">
+                                            <a data-parent="#accordion" href="#" aria-expanded="true">
+                                                {{-- Apres avoir parcouru, on affiche le(s) nom(s) du ou des role(s) --}}
                                                 {{ $role['role_nom'] }}
                                             </a>
                                         </h4>
                                         <div
                                             class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-
-                                            <input type="checkbox" class="custom-control-input" id="">
-                                            <label class="custom-control-label" for="">
+                                            {{-- Par defaut le mappage de for dans le label se fait grace a l'id du input qui doit etre unique --}}
+                                            {{-- wire:model permet de lier les inputs(leur action) aux variables --}}
+                                            {{-- lazy c'est pour empecher livewire de faire des modifications a chaque fois --}}
+                                            {{-- rolePermissions.roles.{{$loop->index}}.active c'est encore $rolePermissions["roles"][i]["active"] i est un entier naturel --}}
+                                            <input type="checkbox" class="custom-control-input"
+                                                wire:model.lazy="rolePermissions.roles.{{ $loop->index }}.active"
+                                                @if ($role['active']) checked @endif
+                                                id="customSwitch{{ $role['role_id'] }}">
+                                            <label class="custom-control-label"
+                                                for="customSwitch{{ $role['role_id'] }}">
+                                                {{-- Si la cdt est vrai on affiche activer sinon on affiche desactiver --}}
+                                                {{ $role['active'] ? 'Activé' : 'Désactivé' }}
                                             </label>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
+
+                            {{-- @json($rolePermissions["roles"]) --}}
                         </div>
                     </div>
 
@@ -181,20 +194,25 @@
                                 <th></th>
                             </thead>
                             <tbody>
+                                @foreach ($rolePermissions['permissions'] as $permission)
+                                    <tr>
+                                        <td> {{ $permission['permission_nom'] }}</td>
+                                        <td>
+                                            <div
+                                                class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
 
-                                <tr>
-                                    <td></td>
-                                    <td>
-                                        <div
-                                            class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-
-                                            <input type="checkbox" class="custom-control-input" id="">
-                                            <label class="custom-control-label" for="">
-                                            </label>
-                                        </div>
-                                    </td>
-                                </tr>
-
+                                                <input type="checkbox" class="custom-control-input"
+                                                    wire:model.lazy="rolePermissions.permissions.{{ $loop->index }}.active"
+                                                    @if ($permission['active']) checked @endif
+                                                    id="customSwitchPermission{{ $permission['permission_id'] }}">
+                                                <label class="custom-control-label"
+                                                    for="customSwitchPermission{{ $permission['permission_id'] }}">
+                                                    {{ $permission['active'] ? 'Activé' : 'Désactivé' }}
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
 
                         </table>

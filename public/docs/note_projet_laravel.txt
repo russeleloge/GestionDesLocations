@@ -1,0 +1,138 @@
+Integration du template a notre projet:
+	
+	-Etant sur le template dans le navigateur:
+		* accéder a la documentation du template
+		* Ouvrir le terminal, se placer sur son projet et via npm taper la commande proprosée par la documentation <<npm install admin-lte@3.1 --save>>
+		* Se rendre sur Layout sur le navigateur et cliquer sur "starter page"
+		* Afficher le code source de la page, ensuite identifier les librairies(bootstrap,js,css,...)
+		*
+	-l'importation des librairies js se fait dans le fichier resources/js/app.js
+
+		* IL contient par defaut déja à la première ligne require('./bootstrap');
+		* Importer les librairies trouver dans le code source de la page du navigateur et mettre le chemin d'accès correspondant depuis 'node_modules'. 
+		  Par exemple <<import "admin-lte/plugins/bootstrap/js/bootstrap.bundle">> 
+
+	-l'importation des librairies css se fait dans le fichier resources/css/app.css
+
+		* Par défaut, il est vide;
+		* Importer les librairies trouver dans le code source de la page du navigateur et mettre le chemin d'accès correspondant depuis 'node_modules'. 
+		  Par exemple <<import "admin-lte/dist/css/adminlte.css">> 
+
+	- laravel-mix se trouvant dans le fichier package.json va prendre tous les fichiers se trouvant dans app.js et va les combiner en un seul fichier et vas
+		venir le deposer dans le dossier 'public/js/app.js'(toutes les lignes de code) et 'public/css/app.css'(toutes les lignes de code) grace au fichier 
+		webpack.mix.js et pour cela, taper la commande 'npm run development' 
+	- Creation du fichier 'master.blade.php' dans resources\views\layouts\master.blade.php, ainsi on fait un copier/coller du code source de la page en supprimant les liens de cette page 
+	  dans le fichier 'welcome.blade.php' ecrire '@extends("layouts.master")' afin qu'il herite de ce dernier(du fichier master) 
+
+
+	git init permet d'integrer la fonctionnalité de versionning à son projet
+	c'est le fichier welcome.blade.php qui s'execute par defaut lorsqu'on cree un nouveau projet laravel
+	Dans le dossier routes se trouve un fichier web.php qui contient ### Route::get('/', function () {return view('welcome'); }); ###
+	mix ou asset nous expose au dossier public.
+
+	Toutes les vues se terminent par .blade.php et se trouvent dans le dossier "Resource/views"
+	un controlleur est une classe.
+
+	Pour creer un controller, il suffit d'utiliser la commande php artisan make:controller nom_controller
+	controller c'est le nom du dossier
+	Les controllers se trouvent dans app/http/controller
+
+	Le mot cle asset pointe sur le dossier public
+	Les Masters pages facilitent la navigation entre les pages
+	le fichier .env contient certains services que laravel va utiliser notamment pour la connexion a la base de donner
+	les migrations se trouvent dans le dossier database
+	Pour creer un migration, taper artisan make:migration create_nom_migration
+
+	Les migrations s'executent du haut vers le bas, donc si une classe est dependante d'une l'autre, elle doit etre creer apres celle ci et non avant 
+
+
+	$table->foreignId("classe_id")->constrained("classes"); foreignId veut dire clé étrangère; constrained indique la classe ou provient la clé étrangère
+	Schema::enableForeignKeyConstraints(); permet d'appliquer les contraintes d'integrité
+
+	php artisan migrate permet de valider les migrations
+	php artisan migrate:fresh au cas ou on refais la creation des tables
+
+Les modeles sont des classes qui vont aller se connecter a nos tables et qui vont nous permettre de recuperer facilement les donnees sans trop ecrire du code
+pour creer un modele, il faut taper: <<php artisan make:model nom_modele>> (nom_modele = nom_table c'est la convention)
+Puis ensuite la creation des factory: <<php artisan make:factory nom_factory>> (nom_modele = commencement du nom_modele c'est la convention)
+
+Pour creer le modele et son factory en meme temps: <<php artisan make:model nom_modele -f>>
+
+Les seeders sont des classes qui vont nous permettre de generer des donnees selon ce que nous avons defini nous meme
+Pour creer un seeder il taper: <<php artisan make:seeder nom_seeders>> (nom_seeder = commencement du nom_modele c'est la convention)
+
+php artisan db:seed pour executer les seed
+php artisan migrate:fresh --seed
+
+On peut ne pas creer un factory mais plutot une seeder si on veut avoir un controle total c-a-d on veut envoyer les données manuellement et non automatiquement
+Generalement les seeders uniquement c'est pour les tables qui ne dependent pas des autres
+
+$table->foreignId("type_article_id")->constrained(); 	veut dire que id de la table type_articles migre dans la table ou est ecrit ce code autrement dit, on peut ecrire:
+$table->foreignId("id")->constrained("type_articles");
+
+
+
+				######################### CONVENTION DE CREATION #################################
+
+
+	pour creer une table grace aux migrations:
+		*Elles se terminent toujours avec s et commencent toujours par create
+		*Le nom de la table est toujours en miniscule
+		
+		exemple: Creons la table paiements
+ 		code: php artisan make:migration create_paiements_table
+		exemple: Creons la table paiement_locations
+ 		code: php artisan make:migration create_paiement_locations_table
+
+	pour creer un model:
+		
+		*Elles commencent toujours par une lettre majuscule et se termine sans s
+
+		exemple: Creons le modele de la table paiements
+ 		code: php artisan make:model Paiement
+	NB: Faire tres attention(la presence de _ dans le nom de la table implique le commencement par une lettre majuscule dans le model)
+		exemple: Creons le modele de la table paiement_locations
+ 		code: php artisan make:model PaiementLocation
+
+	Pour creer une factory:
+		*Elles s'ecrivent de la meme maniere que le model
+		
+		exemple: creons la factory du model Paiement
+		code: php artisan make:factory Paiement
+
+	Pour creer une seeder:
+		
+		exemple: Creons la seeder du model Paiement
+		code: php artisan make:seeder PaiementTableSeeder
+
+	Pour creer une middleware:
+		php artisan make:midlleware nom_middleware
+
+	Pour creer un composant livewire:
+		php artisan make:livewire nom_composant
+
+
+Creation des gates ce sont les portes, dans lesquelles on octroit l'acces a certaines personnes
+On les definis dans providers/AuthServiceProvider.php
+
+Une middleware correspond a un profil precis. A chaque profil correspond une middleware
+
+Apres modification d'un des fichiers app, executer la commande npm run watch
+
+Dans app/Helpers, nous avons definit une methode et pour permettre sonutilisation dans tout le code, on le definit ce chemin d'acces dans le
+fichier composer.json, .
+        "files": [
+            "app/Helpers/helpers.php"
+        ]
+
+@can est directement relier avec les gates afin de definir les acces(Gestion des roles)
+Apres avoir creer une middleware, il faudra la faire connaitre par app\Http\Kernel.php
+
+Petite technique:
+	-Creer une route precise vers un controller, puis creer le controller, ensuite creer une fonction dans le controller qui
+	 va pointer sur une vue creer egalement
+
+php a besoin d'un interpreteur(serveur) et non d'un compilateur. C'est un langage interpreter et non compiler
+
+	
+	

@@ -22,10 +22,10 @@ class DatabaseSeeder extends Seeder
         $this->Call(TypeArticleTableSeeder::class);
 
         // permet d'executer la factory(nombre d'articles qu'il va generer)
-        Article::factory(10)->create();
+        Article::factory(40)->create();
         // \App\Models\User::factory(10)->create();
-        Client::factory(10)->create();
-        User::factory(10)->create();
+        Client::factory(40)->create();
+        User::factory(40)->create();
 
         $this->call(RoleTableSeeder::class);
         $this->call(StatutLocationTableSeeder::class);
