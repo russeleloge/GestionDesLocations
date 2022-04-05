@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\TypeArticle;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -15,11 +16,6 @@ class TypeArticleTableSeeder extends Seeder
     public function run()
     {
         // Interaction directe avec la BD
-        DB::table("type_articles")->insert([
-            ["nom" => "Voiture"],
-            ["nom" => "Immobilier"],
-            ["nom" => "Appareils Electroniques"],
-            ["nom" => "Salle"]
-        ]);
+        TypeArticle::factory(20)->create();
     }
 }

@@ -6,6 +6,7 @@ namespace Database\Seeders;
 use App\Models\Article;
 use App\Models\User;
 use App\Models\Client;
+use App\Models\TypeArticle;
 use Illuminate\Database\Seeder;
 use Prophecy\Call\Call;
 
@@ -26,6 +27,7 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         Client::factory(40)->create();
         User::factory(40)->create();
+        
 
         $this->call(RoleTableSeeder::class);
         $this->call(StatutLocationTableSeeder::class);

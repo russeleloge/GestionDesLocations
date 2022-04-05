@@ -12,6 +12,8 @@ class TypeArticle extends Model
     // type_articles c'est le nom de la table
     protected $table = "type_articles";
 
+    protected $fillable = ["nom"];
+
     public function articles()
     {
         // cela signifie qu'on peut recuperer tous les articles pour un type d'article

@@ -67,8 +67,8 @@
             </ul>
         </li>
 
-        <li class="nav-item">
-            <a href="#" class="nav-link">
+        <li class="nav-item <?php echo e(setMenuClass('admin.gestarticles.', 'menu-open')); ?>">
+            <a href="#" class="nav-link <?php echo e(setMenuClass('admin.gestarticles.', 'active')); ?>">
                 <i class="nav-icon fas fa-cogs"></i>
                 <p>
                     Gestion articles
@@ -77,7 +77,8 @@
             </a>
             <ul class="nav nav-treeview">
                 <li class="nav-item">
-                    <a href="#" class="nav-link ">
+                    <a href="<?php echo e(route('admin.gestarticles.typearticles')); ?>" 
+                    class="nav-link <?php echo e(setMenuActive('admin.gestarticles.typearticles')); ?> ">
                         <i class="nav-icon far fa-circle"></i>
                         <p>Type d'articles</p>
                     </a>

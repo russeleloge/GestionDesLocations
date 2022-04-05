@@ -1,0 +1,31 @@
+Mon email: tchogarussel@gmail.com
+Mon name: russel
+russeleloge....lGlG@2002
+Pour debuter on initialise le projet:
+	-git init
+Pour entrer ses infos:
+	-git config --global user.email "ton_email"
+	-git config --global user.name "ton_name"
+Pour afficher les fichiers qui n'ont pas encore ete committer:
+	-git status
+Pour les committer:
+	-git add . (Si l'on veut comitter tous ces fichiers)
+	-git add *.html *.css (Si l'on veut comitter tous les fichiers .html et tous les fichiers .css)
+Pour enregistrer la sauvegarde:
+	-git commit -m "bon commentaire"
+Pour recuperer tous les fichiers supprimer:
+	-git checkout -- .
+Pour creer une branche:
+	-git branch nom_branche
+Pour changer de branche:
+	-git checkout nom_branche
+Pour faire fusionner les branches(Avant ca, se positionner sur la branche master):
+	-git merge nom_branche(Il s'agit de la branche externe)
+Pour supprimer une branche(Le plus souvent apres la fusion, on supprime la branche intermediaire):
+	-git branch -d nom_branche
+Pour visualiser les changements:
+	-git log
+pour afficher toutes les branches:
+	-git branch --list
+Pour envoyer les modifications sur le serveur:
+	-git push

@@ -2,6 +2,7 @@
 // importation du modele qu'on veut retourner
 
 use App\Http\Controllers\UserController;
+use App\Http\Livewire\TypeArticleComp;
 use App\Http\Livewire\Utilisateurs;
 use App\Models\Article;
 use App\Models\TypeArticle;
@@ -24,16 +25,16 @@ use Illuminate\Support\Facades\Route;
 // });
 
 // Creation d'une nouvelle route
-Route::get('/articles', function(){
+Route::get('/articles', function () {
     // si on veut retourner tous les articles
     // return Article::all();
     return Article::with("type")->paginate(5);
 });
 
-Route::get('/types', function(){
+Route::get('/types', function () {
     return TypeArticle::with("type")->paginate(5);
 });
- 
+
 Auth::routes();
 
 // Notons que le controlleur home necessite une authentification
@@ -46,11 +47,22 @@ Route::group([
     "middleware" => ["auth", "auth.admin"],
     "as" => "admin."
 ], function () {
+    
     Route::group([
         "prefix" => "habilitations",
         "as" => "habilitations."
     ], function () {
+        // Utilisateurs fait reference au composant(la classe) qui se trouve a la App\Http\Livewire\Utilisateurs
         Route::get("/utilisateurs", Utilisateurs::class, "index")->name('users.index');
+    });
+
+
+    Route::group([
+        "prefix" => "gestarticles",
+        "as" => "gestarticles."
+    ], function () {
+        // TypeArticleComp fait reference au composant(la classe) qui se trouve a la App\Http\Livewire\TypeArticleComp
+        Route::get("/typearticles", TypeArticleComp::class)->name('typearticles');
     });
 });
 

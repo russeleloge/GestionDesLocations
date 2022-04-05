@@ -25,7 +25,7 @@
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="#" class="brand-link">
-                <center><span class="brand-text font-weight-bold" style="font-size:1.3em"><b>Just do it ✔</b></span></center>
+                <center><span class="brand-text font-weight-bold" style="font-size:1.2em; font-family:;"><strong>COMMANDES</strong></span></center>
             </a>
 
             <!-- Sidebar -->
