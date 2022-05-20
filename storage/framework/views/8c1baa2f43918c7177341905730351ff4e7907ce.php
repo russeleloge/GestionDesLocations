@@ -1,0 +1,1 @@
+<?php /**PATH R:\apkGest\resources\views/livewire/articles/add.blade.php ENDPATH**/ ?>
