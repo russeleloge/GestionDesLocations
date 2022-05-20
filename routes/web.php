@@ -1,13 +1,14 @@
 <?php
 // importation du modele qu'on veut retourner
 
-use App\Http\Controllers\UserController;
-use App\Http\Livewire\TypeArticleComp;
-use App\Http\Livewire\Utilisateurs;
 use App\Models\Article;
 use App\Models\TypeArticle;
+use App\Http\Livewire\ArticleComp;
+use App\Http\Livewire\Utilisateurs;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\TypeArticleComp;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,7 +63,8 @@ Route::group([
         "as" => "gestarticles."
     ], function () {
         // TypeArticleComp fait reference au composant(la classe) qui se trouve a la App\Http\Livewire\TypeArticleComp
-        Route::get("/typearticles", TypeArticleComp::class)->name('typearticles');
+        Route::get("/types", TypeArticleComp::class)->name('types');
+        Route::get("/articles", ArticleComp::class)->name('articles');
     });
 });
 
