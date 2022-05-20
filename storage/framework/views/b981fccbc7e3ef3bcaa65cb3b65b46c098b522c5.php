@@ -1,10 +1,10 @@
 <div>
    
-@include("livewire.typearticles.editProp")
+<?php echo $__env->make("livewire.typearticles.editProp", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-@include("livewire.typearticles.addProp")
+<?php echo $__env->make("livewire.typearticles.addProp", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
-@include("livewire.typearticles.list")
+<?php echo $__env->make("livewire.typearticles.list", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
 </div>
 
@@ -35,7 +35,7 @@
                     return 'Champ obligatoire'
                 } else {
                     // Voici une facon d'appeler les fonctions livewire depuis le Javascript
-                    @this.updateTypeArticle(e.detail.typearticle.id, value)
+                    window.livewire.find('<?php echo e($_instance->id); ?>').updateTypeArticle(e.detail.typearticle.id, value)
                 }
             }
         })
@@ -59,11 +59,11 @@
                 // contraire, on reinitialise le mot de passe 
                 //On teste l'element pour savoir s'il s'agit d'une suppression de proprietes ou de type d'articles
                 if (event.detail.message.data.type_article_id) {
-                    @this.deleteTypeArticle(event.detail.message.data.type_article_id)
+                    window.livewire.find('<?php echo e($_instance->id); ?>').deleteTypeArticle(event.detail.message.data.type_article_id)
                 }
 
                 if (event.detail.message.data.propriete_id) {
-                    @this.deleteProp(event.detail.message.data.propriete_id)
+                    window.livewire.find('<?php echo e($_instance->id); ?>').deleteProp(event.detail.message.data.propriete_id)
                 }
 
             }
@@ -87,3 +87,4 @@
         $("#editModalProp").modal('hide');
     })
 </script>
+<?php /**PATH R:\apkGest\resources\views/livewire/typearticles/index.blade.php ENDPATH**/ ?>

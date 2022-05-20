@@ -1,25 +1,4 @@
-<div>
-
-    <div class="modal fade" id="modalProp" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Modal title</h5>
-            
-            </div>
-            <div class="modal-body">
-              <p>Modal body text goes here.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" wire:click="closeModal()">Fermer</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-
-    <div class="row p-4 pt-5">
+ <div class="row p-4 pt-5">
         <div class="col-12">
             <div class="card">
                 <div class="card-header bg-gradient-primary d-flex align-items-center">
@@ -101,11 +80,12 @@ unset($__errorArgs, $__bag); ?>
 
                                         <button class="btn btn-link" wire:click="showProp(<?php echo e($typearticle->id); ?>)">
                                             <i class="fa fa-list"></i>Propriétés </button>
-
-                                        <button class="btn btn-link"
-                                            wire:click="confirmDelete('<?php echo e($typearticle->nom); ?>', <?php echo e($typearticle->id); ?>)">
-                                            <i class="far fa-trash-alt"></i> </button>
-
+                                        
+                                        <?php if(count($typearticle->articles) == 0): ?>
+                                            <button class="btn btn-link"
+                                                wire:click="confirmDelete('<?php echo e($typearticle->nom); ?>', <?php echo e($typearticle->id); ?>)">
+                                                <i class="far fa-trash-alt"></i> </button>
+                                        <?php endif; ?>
                                     </td>
                                 </tr>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -122,72 +102,4 @@ unset($__errorArgs, $__bag); ?>
             </div>
             <!-- /.card -->
         </div>
-    </div>
-</div>
-
-<script>
-    window.addEventListener("showSuccessMessage", event => {
-        Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            toast: true,
-            title: event.detail.message || "Opération effectuée avec succès!",
-            showConfirmButton: false,
-            timer: 3000
-        })
-    })
-
-    window.addEventListener("showEditForm", function(e) {
-        Swal.fire({
-            title: "Edition d'un type d'article",
-            input: 'text',
-            inputValue: e.detail.typearticle.nom,
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Modifier <i class="fa fa-check"></i>',
-            cancelButtonText: 'Annuler <i class="fa fa-times"></i>',
-            inputValidator: (value) => {
-                if (!value) {
-                    return 'Champ obligatoire'
-                } else {
-                    // Voici une facon d'appeler les fonctions livewire depuis le Javascript
-                    window.livewire.find('<?php echo e($_instance->id); ?>').updateTypeArticle(e.detail.typearticle.id, value)
-                }
-            }
-        })
-    })
-
-    window.addEventListener("showConfirmMessage", event => {
-
-        Swal.fire({
-            //    event.detail.message provient de la fonction confirmDelete
-            title: event.detail.message.title,
-            text: event.detail.message.text,
-            icon: event.detail.message.type,
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Continuer',
-            cancelButtonText: 'Annuler'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Si on a le parametre data, on sait qu'il s'agit d'une suppression dans le cas
-                // contraire, on reinitialise le mot de passe 
-                if (event.detail.message.data) {
-                    window.livewire.find('<?php echo e($_instance->id); ?>').deleteTypeArticle(event.detail.message.data.type_article_id)
-                }
-
-            }
-        })
-    })
-
-    window.addEventListener("showModal", event => {
-        $("#modalProp").modal('show')
-    })
-
-    window.addEventListener("closeModal", event => {
-        $("#modalProp").modal('hide')
-    })
-</script>
-<?php /**PATH F:\apkGest\resources\views/livewire/typearticles/index.blade.php ENDPATH**/ ?>
+    </div><?php /**PATH R:\apkGest\resources\views/livewire/typearticles/list.blade.php ENDPATH**/ ?>

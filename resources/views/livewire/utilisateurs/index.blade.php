@@ -27,7 +27,7 @@
                 timer: 3000
             })
         })
-    
+
         // SweetAlert est une librairie JS qui permet d'afficher de beaux messages
         window.addEventListener("showConfirmMessage", event => {
             Swal.fire({
@@ -46,21 +46,20 @@
                     // contraire, on reinitialise le mot de passe 
                     if (event.detail.message.data) {
                         @this.deleteUser(event.detail.message.data.user_id)
+                    } else {
+                        @this.resetPassword()
                     }
-    
-                    @this.resetPassword()
-    
                 }
             })
         })
     </script>
 
     {{-- @if ($isBtnAddClicked) --}}
-        {{-- Appel du contenu de la vue create --}}
-        {{-- @include('livewire.utilisateurs.create')
+    {{-- Appel du contenu de la vue create --}}
+    {{-- @include('livewire.utilisateurs.create')
     @else --}}
-        {{-- Appel du contenu de la vue liste --}}
-        {{-- @include('livewire.utilisateurs.liste')
+    {{-- Appel du contenu de la vue liste --}}
+    {{-- @include('livewire.utilisateurs.liste')
     @endif --}}
 
 </div>

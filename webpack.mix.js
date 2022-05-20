@@ -11,6 +11,23 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
+//  //////////////////////////////////////////////////////////
+ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css');
+// ////////////////////////////////////////////////////////
+
+// mix.js('resources/js/app.js', 'public/js')
+//     .postCss('resources/css/app.css', 'public/css')
+//     .scripts('node_modules/admin-lte/plugins/jquery/jquery.js','public/js');
+// ---------------------------------------------------------------------------------------------------
+    // mix.js('resources/js/app.js', 'public/js')
+    //     .js('node_modules/jquery/dist/jquery.js', 'node_modules/bootstrap/dist/js/bootstrap.min.js')
+    // .autoload({
+    //     jquery:['$', 'window.$', 'jQuery'],
+    // });
+    // mix.postCss('resources/css/app.css', 'public/css');
+    // ----------------------------------------------------------------------------------------------
     
+// mix.combine([
+//     'node_modules/jquery/dist/jquery.js', 'node_modules/bootstrap/dist/js/bootstrap.min.js'
+// ],'public/js/app.js');
