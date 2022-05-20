@@ -56490,9 +56490,16 @@ a.text-muted:hover {
 .dark-mode .dark-mode.accent-gray-dark .page-item .page-link:hover, .dark-mode .dark-mode.accent-gray-dark .page-item .page-link:focus {
   color: #3f474e;
 }
+.ellipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
 
-.ellipsis{
-    text-overflow:ellipsis;
-    white-space:nowrap;
-    overflow:hidden;
+.modal.fade {
+    background: rgba( 0, 0, 0, 0.7);
+}
+
+.modal-backdrop.fade {
+    opacity: 0;
 }

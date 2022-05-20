@@ -134,5 +134,14 @@ Petite technique:
 
 php a besoin d'un interpreteur(serveur) et non d'un compilateur. C'est un langage interpreter et non compiler
 
+
+Dans le cas ou vous avez une erreur du type: $ is not defined
+	-taper la commande npm install jquery
+	-taper npm run dev 
+	-Ajouter  ##############   window.Popper = require('popper.js').default;
+    						   window.$ = window.jQuery = require('jquery'); 
+			  ######## dans le try catch
+	-npm run watch
+
 	
 	

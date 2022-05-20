@@ -1,10 +1,16 @@
-
 @import "~admin-lte/plugins/fontawesome-free/css/all.css";
 @import "~admin-lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css";
 @import "~admin-lte/dist/css/adminlte.css";
+.ellipsis {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
 
-.ellipsis{
-    text-overflow:ellipsis;
-    white-space:nowrap;
-    overflow:hidden;
+.modal.fade {
+    background: rgba( 0, 0, 0, 0.7);
+}
+
+.modal-backdrop.fade {
+    opacity: 0;
 }

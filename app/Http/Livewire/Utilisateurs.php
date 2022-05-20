@@ -98,16 +98,17 @@ class Utilisateurs extends Component
                 'editUser.sexe' => 'required',
                 'editUser.numeroPieceIdentite' => ['required', Rule::unique("users", "pieceIdentite")->ignore($this->editUser['id'])],
             ];
+        } else {
+            return [
+                'newUser.nom' => 'required',
+                'newUser.prenom' => 'required',
+                'newUser.email' => 'required|email|unique:users,email',
+                'newUser.telephone1' => 'required|numeric|unique:users,telephone1',
+                'newUser.pieceIdentite' => 'required',
+                'newUser.sexe' => 'required',
+                'newUser.numeroPieceIdentite' => 'required|unique:users,numeroPieceIdentite',
+            ];
         }
-        return [
-            'newUser.nom' => 'required',
-            'newUser.prenom' => 'required',
-            'newUser.email' => 'required|email|unique:users,email',
-            'newUser.telephone1' => 'required|numeric|unique:users,telephone1',
-            'newUser.pieceIdentite' => 'required',
-            'newUser.sexe' => 'required',
-            'newUser.numeroPieceIdentite' => 'required|unique:users,numeroPieceIdentite',
-        ];
     }
 
     // Ces 2 fonctions seront utiliser dans la vue index pour savoir si on doit
@@ -121,6 +122,7 @@ class Utilisateurs extends Component
     {
         $this->currentPage = PAGELIST;
         $this->editUser = [];
+        $this->resetErrorBag($this->editUser);
     }
 
     public function goToEditUser($id)
@@ -141,18 +143,17 @@ class Utilisateurs extends Component
 
         foreach ($this->rolePermissions["roles"] as $role) {
             // ici, on attache l'id du role a l'id de l'utilisateur dans la user_role
-            if($role["active"]){
+            if ($role["active"]) {
                 User::find($this->editUser["id"])->roles()->attach($role["role_id"]);
             }
         }
-        foreach($this->rolePermissions["permissions"] as $permission){
+        foreach ($this->rolePermissions["permissions"] as $permission) {
             // Pour chq permission, on teste si c'est activer
-            if($permission["active"]){
+            if ($permission["active"]) {
                 User::find($this->editUser["id"])->permissions()->attach($permission["permission_id"]);
             }
         }
         $this->dispatchBrowserEvent("showSuccessMessage", ["message" => "Roles et permissions mis à jour avec succès!"]);
-
     }
 
     public function populateRolePermissions()

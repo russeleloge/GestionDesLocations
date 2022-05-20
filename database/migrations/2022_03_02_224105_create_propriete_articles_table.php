@@ -19,6 +19,9 @@ class CreateProprieteArticlesTable extends Migration
             $table->boolean("estObligatoire")->default(1);
             // $table->timestamps();
             $table->foreignId("type_article_id")->constrained();
+        // on ne peut pas avoir 2 valeurs de nom qui vont correspondrent au meme id type d'article
+            $table->unique(["nom", "type_article_id"]);
+        
         });
         Schema::enableForeignKeyConstraints();  
     }
